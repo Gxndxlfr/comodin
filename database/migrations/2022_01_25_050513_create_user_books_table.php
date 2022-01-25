@@ -15,6 +15,10 @@ class CreateUserBooksTable extends Migration
     {
         Schema::create('user_books', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->unsignedBigInteger('id_book')->nullable();
+            $table->foreign('id_book')->references('id')->on('books');
             $table->timestamps();
         });
     }
