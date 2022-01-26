@@ -6,6 +6,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserBookController;
 
+use App\Http\Controllers\ViewController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,13 +20,15 @@ use App\Http\Controllers\UserBookController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+
+Route::get('/register',[ViewController::class,'register']);
 
 //Ruta para la clase User
 Route::get('/users',[UserController::class,'index']);
 Route::get('/users/{id}',[UserController::class,'show']);
-Route::post('/users/create',[UserController::class,'store']);
+Route::post('/users/create',[UserController::class,'store'])->name('registrar');
 Route::put('/users/update/{id}',[UserController::class,'update']);
 Route::delete('/users/destroy/{id}',[UserController::class,'destroy']);
 

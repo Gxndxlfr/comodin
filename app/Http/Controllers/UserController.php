@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
@@ -42,15 +43,36 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $user=new user;
+        $validate = Validator::make($request->all(),
+            [
+                
+                'email'=>'required|max:30|unique:users,email',
+                'password' => [
+                    'required',
+                    'string',
+                    'min:8',             // must be at least 10 characters in length
+                    'regex:/[a-z]/',      // must contain at least one lowercase letter
+                    'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                    'regex:/[0-9]/',      // must contain at least one digit
+                    'regex:/[@$!%*#?&]/', // must contain a special character
+                ],
+            ],
+            [
+                'email.required'=>'Debe ingresar un correo electronico',
+                'email.unique'=>'El correo electronico ya existe',
+                'password.required'=>'Debe ingresar una contraseña',
+                'password.min'=>'La contraseña debe ser de mi :min caracteres',
+                'password.regex'=>'La contraseña debe cumplir el formato'
+            ]
+            );
+        
+        $validate->validate();
+        $user=new User;
         $user->email = $request->email;        
         $user->password = $request->password;        
-        $user->id_role = $request->id_role;
+        $user->id_role = 2;
         $user->save();
-        return response()->json([
-            "message"=>"Se a creado un usuario",
-            "id"=>$user->id
-        ]);
+        return redirect('/');
     }
 
     /**
