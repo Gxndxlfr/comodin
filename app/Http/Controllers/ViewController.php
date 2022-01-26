@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Book;
 class ViewController extends Controller
 {
 
@@ -23,11 +24,22 @@ class ViewController extends Controller
             if(($Users[$i]->email==$request->email) and ($Users[$i]->password==$request->password)){
                 $request->session()->put('id_usuario_logeado',$Users[$i]->id);
                 $request->session()->put('id_role_logeado',$Users[$i]->id_role);
-                return redirect('/home');
+                return redirect('/Home');
             }
         }
         return back()->with('loginError','Credenciales incorrectas, Verifique sus datos e intentelo de nuevo');
       
+    }
+
+    public function mostrarHome()
+    {
+        //
+        $books = Book::all();
+
+        
+        return view('home', [
+            'books' => $books,
+        ]);
     }
     /**
      * Display a listing of the resource.

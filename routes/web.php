@@ -28,9 +28,8 @@ Route::get('/register',[ViewController::class,'register']);
 
 Route::post('/loginAttempt',[ViewController::class,'login'])->name('logearse');
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+
+Route::get('/Home',[ViewController::class,'mostrarHome']);
 
 //Ruta para la clase User
 Route::get('/users',[UserController::class,'index']);
