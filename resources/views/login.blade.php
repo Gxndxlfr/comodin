@@ -27,8 +27,8 @@
       <div class="col bg-white p-5 rounded-end">
         
         <h2 class="fd-bold text-center pt-5 mb-5">Bienvenido</h2>
-
-        <form method="POST" >
+        
+        <form method="POST" action="{{route('logearse')}}" >
           <div class="mb-4">
             <label for="email" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" name="email">
@@ -38,7 +38,7 @@
             <input type="password" class="form-control" name="password">
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary" href="/">Iniciar Sesión</button>
+            <button type="submit" class="btn btn-primary" href="/loginAttempt">Iniciar Sesión</button>
           </div>
           <div class="my-3">
             <span>

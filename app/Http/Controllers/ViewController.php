@@ -16,6 +16,19 @@ class ViewController extends Controller
         ]);
     }
 
+    public function login(Request $request){
+       
+        $Users = User::all();
+        for($i=0;$i<count($Users);++$i){
+            if(($Users[$i]->email==$request->email) and ($Users[$i]->password==$request->password)){
+                $request->session()->put('id_usuario_logeado',$Users[$i]->id);
+                $request->session()->put('id_role_logeado',$Users[$i]->id_role);
+                return redirect('/home');
+            }
+        }
+        return back()->with('loginError','Credenciales incorrectas, Verifique sus datos e intentelo de nuevo');
+      
+    }
     /**
      * Display a listing of the resource.
      *
