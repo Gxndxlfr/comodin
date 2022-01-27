@@ -31,6 +31,8 @@ Route::post('/loginAttempt',[ViewController::class,'login'])->name('logearse');
 
 Route::get('/Home',[ViewController::class,'mostrarHome']);
 
+Route::get('/agregarLibro',[ViewController::class,'mostrarFormNewUser']);
+
 //Ruta para la clase User
 Route::get('/users',[UserController::class,'index']);
 Route::get('/users/{id}',[UserController::class,'show']);
@@ -48,7 +50,7 @@ Route::delete('/roles/destroy/{id}',[RoleController::class,'destroy']);
 //Ruta para la clase Book
 Route::get('/books',[BookController::class,'index']);
 Route::get('/books/{id}',[BookController::class,'show']);
-Route::post('/books/create',[BookController::class,'store']);
+Route::post('/books/create',[BookController::class,'store'])->name('agregarLibro');
 Route::put('/books/update/{id}',[BookController::class,'update']);
 Route::delete('/books/destroy/{id}',[BookController::class,'destroy']);
 

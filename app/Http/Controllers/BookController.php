@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
@@ -41,16 +42,30 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
+        $validate = Validator::make($request->all(),
+            [
+                
+                'name'=>'required|unique:books,name',
+                'fecha_publicacion' =>'required',
+                'autor' => 'required',
+                'link_descarga' => 'required',
+            ],
+            [
+                'name.required'=>'Debe ingresar el nombre del libro',
+                'name.unique'=>'El libro ya está en la libreria',
+                'fecha_publicacion.required'=>'Debe ingresar la fecha de publicación del nombre',                
+                'autor.required'=>'Debe ingresar el nombre del autor',                
+                'link_descarga.required'=>'Debe ingresar el link de descarga del libro'
+            ]
+        );
+        $validate->validate();
         $book= new Book;
-        $book->name = $request->email;        
+        $book->name = $request->name;        
         $book->fecha_publicacion = $request->fecha_publicacion;        
         $book->autor = $request->autor;
         $book->link_descarga = $request->link_descarga;
         $book->save();
-        return response()->json([
-            "message"=>"Se a creado un libro",
-            "id"=>$book->id
-        ]);
+        return redirect('/Home');
     }
 
     /**

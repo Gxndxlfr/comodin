@@ -41,6 +41,17 @@ class ViewController extends Controller
             'books' => $books,
         ]);
     }
+
+    public function mostrarFormNewUser()
+    {  
+        $books = Book::all();
+
+        
+        return view('formNewLibro', [
+            'books' => $books,
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
